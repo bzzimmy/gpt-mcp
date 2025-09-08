@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { z } from 'zod';
 import dotenv from 'dotenv';
 import { OpenAIService } from './services/openai.js';
 import { SessionManager } from './services/session-manager.js';
@@ -22,6 +23,32 @@ const server = new McpServer({
 
 const openaiService = new OpenAIService(apiKey);
 const sessionManager = new SessionManager();
+
+function formatZodError(error: z.ZodError): string {
+  const issue = error.issues[0];
+  const field = issue.path.join('.');
+  
+  if (issue.code === 'invalid_enum_value') {
+    const options = issue.options as string[];
+    const received = issue.received as string;
+    
+    // Add helpful descriptions for common fields
+    const descriptions: Record<string, string> = {
+      model: 'Available models',
+      reasoning_effort: 'Reasoning levels (minimal=fastest, low, medium, high=most thorough)',
+      verbosity: 'Response detail levels'
+    };
+    
+    const desc = descriptions[field] || 'Available options';
+    return `Invalid ${field} '${received}'. ${desc}: ${options.join(', ')}`;
+  }
+  
+  if (issue.code === 'too_small') {
+    return `${field} is required and cannot be empty`;
+  }
+  
+  return `Invalid ${field}: ${issue.message}`;
+}
 
 server.registerTool(
   'askGPT',
@@ -68,11 +95,19 @@ server.registerTool(
         ],
       };
     } catch (error) {
+      let errorMessage: string;
+      
+      if (error instanceof z.ZodError) {
+        errorMessage = formatZodError(error);
+      } else {
+        errorMessage = `Error: ${error instanceof Error ? error.message : 'Unknown error'}`;
+      }
+      
       return {
         content: [
           {
             type: 'text',
-            text: `Error: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            text: errorMessage,
           },
         ],
         isError: true,

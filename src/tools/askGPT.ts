@@ -4,11 +4,11 @@ import type { OpenAIService } from '../services/openai.js';
 import type { SessionManager } from '../services/session-manager.js';
 
 export const askGPTSchema = z.object({
-  model: z.enum(['gpt-5', 'gpt-5-mini', 'o3']),
-  prompt: z.string().min(1),
-  reasoning_effort: z.enum(['minimal', 'low', 'medium', 'high']).optional(),
-  verbosity: z.enum(['low', 'medium', 'high']).optional(),
-  session_id: z.string().optional(),
+  model: z.enum(['gpt-5', 'gpt-5-mini', 'o3']).describe('GPT model to use (gpt-5, gpt-5-mini, o3)'),
+  prompt: z.string().min(1).describe('The prompt to send to the model'),
+  reasoning_effort: z.enum(['minimal', 'low', 'medium', 'high']).optional().describe('Reasoning depth: minimal (fastest), low, medium, high (most thorough)'),
+  verbosity: z.enum(['low', 'medium', 'high']).optional().describe('Response detail level'),
+  session_id: z.string().optional().describe('Optional session ID to maintain conversation context'),
 });
 
 export async function handleAskGPT(
