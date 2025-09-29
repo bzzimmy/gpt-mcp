@@ -17,7 +17,8 @@ A Model Context Protocol (MCP) server that enables Claude Code and other MCP-com
 
 ### 💡 Key Benefits
 - **70% Token Savings** - Reuse context without repeating information
-- **Parallel Workflows** - Handle multiple independent tasks simultaneously
+- **Parallel Workflows** - Handle mu
+ltiple independent tasks simultaneously
 - **Adaptive Responses** - Control response length with verbosity settings
 - **Smart Model Routing** - Choose optimal model for each task
 
