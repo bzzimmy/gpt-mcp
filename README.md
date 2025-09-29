@@ -204,6 +204,7 @@ npx tsc --noEmit
 - OpenAI API key
 - MCP-compatible client (Claude Code, etc.)
 
+
 ## License
 
 MIT
