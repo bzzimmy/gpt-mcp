@@ -1,3 +1,4 @@
+
 # GPT-MCP Bridge
 
 A Model Context Protocol (MCP) server that enables Claude Code and other MCP-compatible tools to communicate with OpenAI's GPT models, featuring conversation history, session management, and advanced controls.
