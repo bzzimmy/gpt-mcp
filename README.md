@@ -9,7 +9,8 @@ A Model Context Protocol (MCP) server that enables Claude Code and other MCP-com
 ### 🎯 Core Capabilities
 - **Conversation History** - Maintain context across multiple interaction's
 - **Session Management** - Create, manage, and track parallel conversation sessions
-- **Multi-Model Support** - GPT-5, GPT-5-mini, and o3 models
+- **Multi-Model Support**
+ - GPT-5, GPT-5-mini, and o3 models
 - **Advanced Controls** - Reasoning effort and verbosity parameters
 - **Token Tracking** - Monitor usage per session for cost management
 - **Error Handling** - Robust error recovery and session validation
