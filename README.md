@@ -5,6 +5,7 @@ A Model Context Protocol (MCP) server that enables Claude Code and other MCP-com
 
 ## Features
 
+
 ### 🎯 Core Capabilities
 - **Conversation History** - Maintain context across multiple interaction's
 - **Session Management** - Create, manage, and track parallel conversation sessions
